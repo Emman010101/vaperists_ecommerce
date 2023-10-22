@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "616246995319",
+    "project_id": "vaperists-4bdff",
+    "storage_bucket": "vaperists-4bdff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616246995319:android:1eb3f5ff9b033497a69972",
+        "android_client_info": {
+          "package_name": "com.example.vaperists_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "616246995319-rjut1474fn7g7nbuesqcantbfev3p2of.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaperists_ecommerce",
+            "certificate_hash": "4c6ca34365c7a7459791097b0cb297b5c037027c"
+          }
+        },
+        {
+          "client_id": "616246995319-ih305im793iu4rodt3cim79m45p3nje0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTJlg51vl6XdsZ84NcXAHcPIGjMce6aIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "616246995319-ih305im793iu4rodt3cim79m45p3nje0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
