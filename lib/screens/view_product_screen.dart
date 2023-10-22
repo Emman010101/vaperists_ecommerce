@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vaperists_ecommerce/data/firebase_auth.dart';
-import 'package:vaperists_ecommerce/data/firestore_crud.dart';
-import 'package:vaperists_ecommerce/screens/login_screen.dart';
 import 'package:vaperists_ecommerce/utils/useralreadyloggedin_checker.dart';
 import 'package:vaperists_ecommerce/widgets/bnc_widget.dart';
 import 'package:vaperists_ecommerce/widgets/view_product_top_container.dart';
 import 'package:vaperists_ecommerce/widgets/view_product_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 import '../data/global_vars.dart';
 import '../utils/colors.dart';
