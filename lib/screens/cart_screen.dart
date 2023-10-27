@@ -39,7 +39,6 @@ class _CartScreenState extends State<CartScreen> {
     lastItemSizedBoxSize = 0.24;
     pricesArr = [];
     quantityArr = [];
-    print("DOT ${isItemChecked}");
 
     if (widget.isFromViewProductScreen) lastItemSizedBoxSize = 0.12;
 

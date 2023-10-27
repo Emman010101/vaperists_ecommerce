@@ -28,7 +28,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
-    print("DOT ${widget.isItemChecked}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: appBgColor,
