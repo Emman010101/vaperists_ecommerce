@@ -39,6 +39,7 @@ class _CartScreenState extends State<CartScreen> {
     lastItemSizedBoxSize = 0.24;
     pricesArr = [];
     quantityArr = [];
+    print("DOT ${isItemChecked}");
 
     if (widget.isFromViewProductScreen) lastItemSizedBoxSize = 0.12;
 
@@ -207,12 +208,20 @@ class _CartScreenState extends State<CartScreen> {
                                                       child: ElevatedButton(
                                                         onPressed: () async {
                                                           setState(() {
-                                                            cartItems
-                                                                    .itemsQuantity[
-                                                                index]--;
+
+                                                              cartItems
+                                                                  .itemsQuantity[
+                                                              index]--;
+                                                              if(cartItems.itemsQuantity[index] < 1){
+                                                                cartItems.itemsQuantity[index] = 1;
+                                                              }
+                                                              calculate(
+                                                                  cartItems
+                                                                      .currentPrice,
+                                                                  cartItems
+                                                                      .itemsQuantity);
                                                           });
-                                                          print(
-                                                              "cartitems: ${cartItems}");
+
                                                           await updateCart(
                                                               uid, cartItems);
                                                         },
@@ -279,9 +288,12 @@ class _CartScreenState extends State<CartScreen> {
                                                             cartItems
                                                                     .itemsQuantity[
                                                                 index]++;
+                                                            calculate(
+                                                                cartItems
+                                                                    .currentPrice,
+                                                                cartItems
+                                                                    .itemsQuantity);
                                                           });
-                                                          print(
-                                                              "cartitems: ${cartItems.name}");
                                                           await updateCart(
                                                               uid, cartItems);
                                                         },
@@ -457,7 +469,7 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        openScreen(context, const CheckoutScreen());
+                        openScreen(context, CheckoutScreen(isItemChecked: isItemChecked));
                       },
                       child: const Text(
                         "Checkout",

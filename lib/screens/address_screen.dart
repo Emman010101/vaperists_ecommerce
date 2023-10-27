@@ -13,6 +13,8 @@ class AddressScreen extends StatefulWidget {
 class _AddressScreenState extends State<AddressScreen> {
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: appBgColor,
@@ -21,6 +23,10 @@ class _AddressScreenState extends State<AddressScreen> {
           children: [
             Positioned(
               child: Container(
+                padding: const EdgeInsets.only(
+                    top: 10, right: 15, bottom: 10, left: 15),
+                color: kBackgroundColor,
+                height: screenHeight * 0.1,
                 child: Row(
                   children: [
                     BackButton(

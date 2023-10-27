@@ -34,12 +34,12 @@ Future createProducts(
 //         (snapshot) =>
 //             snapshot.docs.map((doc) => Products.fromJson(doc.data())).toList());
 
-Stream<List<Products>> readProducts(collection){
+Stream<List<Products>> readProducts(collection) {
   var collections = FirebaseFirestore.instance.collection(collection);
   var snapshot = collections.snapshots();
 
-  return snapshot.map((event) => event.docs.map((e) => Products.fromJson(e.data())).toList());
-
+  return snapshot.map(
+      (event) => event.docs.map((e) => Products.fromJson(e.data())).toList());
 }
 
 //read data from firestore database once
@@ -226,8 +226,6 @@ Future addToCart(itemId, itemIndex, itemQuantity, uid) async {
     var json = {'cart': cartMap};
 
     docUser.update(json);
-    //print("MAP ${cartMap}");
-    //print("Item Quantity ${itemQuantity}");
   }
 }
 
@@ -285,24 +283,16 @@ class FinalCartItems {
   });
 
   static FinalCartItems fromJson(Map<dynamic, dynamic> json) => FinalCartItems(
-    imageName: json['imageName'],
-    name: json['name'],
-    color: json['color'],
-    currentPrice: json['currentPrice'],
-    itemsQuantity: json['itemsQuantity'],
-    collection: json['collection'],
-    itemsId: json['itemsId'],
-    selectedItemIndex: json['selectedItemIndex'],
-  );
+        imageName: json['imageName'],
+        name: json['name'],
+        color: json['color'],
+        currentPrice: json['currentPrice'],
+        itemsQuantity: json['itemsQuantity'],
+        collection: json['collection'],
+        itemsId: json['itemsId'],
+        selectedItemIndex: json['selectedItemIndex'],
+      );
 }
-
-// Stream<List<Products>> readProducts2(){
-//   var collection = FirebaseFirestore.instance.collection('users');
-//   var snapshot = collection.snapshots();
-//
-//   return snapshot.map((event) => event.docs.map((e) => Products.fromJson(e.data())).toList());
-//
-// }
 
 //read cart
 Future<FinalCartItems?> readCart(uid) async {
@@ -311,16 +301,6 @@ Future<FinalCartItems?> readCart(uid) async {
   var listOfItemToBeInsertedToMap = ['imageName', 'color', 'currentPrice'];
   final docCart = FirebaseFirestore.instance.collection('users').doc(uid);
   final cartSnapshot = await docCart.get();
-
-  print("readCart Func is called");
-  // List<dynamic> imageName;
-  // List<dynamic> name;
-  // List<dynamic> color;
-  // List<dynamic> currentPrice;
-  // List<dynamic> itemsQuantity;
-  // List<dynamic> collection;
-  // List<dynamic> itemsId;
-  // List<dynamic> selectedItemIndex;
 
   for (var i = 0; i < listOfItemToBeInsertedToMap.length; i++) {
     cartFinalMap[listOfItemToBeInsertedToMap[i]] = [];
@@ -334,7 +314,6 @@ Future<FinalCartItems?> readCart(uid) async {
       cartFinalMap['collection'] = cartObj.collection;
       cartFinalMap['itemsId'] = cartObj.itemsId;
       cartFinalMap['selectedItemIndex'] = cartObj.selectedItemIndex;
-      //print("CartOBJ ${cartObj.collection[0]}");
 
       for (var i = 0; i < cartObj.collection.length; i++) {
         final docProduct = FirebaseFirestore.instance
@@ -353,10 +332,6 @@ Future<FinalCartItems?> readCart(uid) async {
         }
         cartFinalMap['name']?.add(productSnapshot.data()?['name']);
         cartFinalMap['itemsQuantity']?.add(cartObj.itemsQuantity[i]);
-        //print("LOOP J ${cartObj.itemsQuantity[i]}");
-
-        // print("Products ${productSnapshot.data()}");
-        //listOfProducts.add(productSnapshot.data() as Products);
       }
     } catch (e) {
       print("no items in the cart");
@@ -369,9 +344,7 @@ Future<FinalCartItems?> readCart(uid) async {
 //function for updating the quantities of the items in cart
 Future updateCart(uid, FinalCartItems cartItems) async {
   try {
-    final docCart = FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid);
+    final docCart = FirebaseFirestore.instance.collection('users').doc(uid);
 
     var json = {
       'cart.itemsQuantity': cartItems.itemsQuantity,
@@ -380,36 +353,33 @@ Future updateCart(uid, FinalCartItems cartItems) async {
     //print("JSON ${cartItems.itemQuantity}");
 
     await docCart.update(json);
-  }catch(e){
+  } catch (e) {
     print("Error: ${e}");
   }
 }
 
-Future deleteItemInCart(uid, Map<String, List<dynamic>> cartItems, List<dynamic> isItemChecked) async {
+Future deleteItemInCart(uid, Map<String, List<dynamic>> cartItems,
+    List<dynamic> isItemChecked) async {
   Map<String, List<dynamic>>? newCartItems = {};
-  final docCart = FirebaseFirestore.instance
-      .collection('users')
-      .doc(uid);
+  final docCart = FirebaseFirestore.instance.collection('users').doc(uid);
 
   newCartItems['collection'] = [];
   newCartItems['itemsId'] = [];
   newCartItems['itemsQuantity'] = [];
   newCartItems['selectedItemIndex'] = [];
-  // List<dynamic> collection;
-  // List<dynamic> itemsId;
-  // List<dynamic> itemsQuantity;
-  // List<dynamic> selectedItemIndex;
-  print("ARRAY ${isItemChecked}");
-  for(var i = 0; i < isItemChecked.length; i++){
-    if(!isItemChecked[i]){
+
+  for (var i = 0; i < isItemChecked.length; i++) {
+    if (!isItemChecked[i]) {
       newCartItems['collection']?.add(cartItems['collection']?.elementAt(i));
       newCartItems['itemsId']?.add(cartItems['itemsId']?.elementAt(i));
-      newCartItems['itemsQuantity']?.add(cartItems['itemsQuantity']?.elementAt(i));
-      newCartItems['selectedItemIndex']?.add(cartItems['selectedItemIndex']?.elementAt(i));
+      newCartItems['itemsQuantity']
+          ?.add(cartItems['itemsQuantity']?.elementAt(i));
+      newCartItems['selectedItemIndex']
+          ?.add(cartItems['selectedItemIndex']?.elementAt(i));
     }
   }
 
-  if(newCartItems['collection']!.isEmpty){
+  if (newCartItems['collection']!.isEmpty) {
     newCartItems = null;
   }
   var json = {
@@ -419,4 +389,81 @@ Future deleteItemInCart(uid, Map<String, List<dynamic>> cartItems, List<dynamic>
   await docCart.update(json);
 }
 
+class Order {
+  List<dynamic> collection;
+  List<dynamic> itemsId;
+  List<dynamic> itemsQuantity;
+  List<dynamic> selectedItemIndex;
+  List<dynamic> status;
+  List<dynamic> totalPrice;
 
+  Order({
+    required this.collection,
+    required this.itemsId,
+    required this.itemsQuantity,
+    required this.selectedItemIndex,
+    required this.status,
+    required this.totalPrice,
+  });
+}
+
+Future<FinalCartItems?> readCartForCheckout(uid, List<dynamic> isItemChecked) async {
+  Cart cartObj;
+  Map<dynamic, List<dynamic>> cartFinalMap = new Map();
+  var listOfItemToBeInsertedToMap = ['imageName', 'color', 'currentPrice'];
+  final docCart = FirebaseFirestore.instance.collection('users').doc(uid);
+  final cartSnapshot = await docCart.get();
+
+  for (var i = 0; i < listOfItemToBeInsertedToMap.length; i++) {
+    cartFinalMap[listOfItemToBeInsertedToMap[i]] = [];
+  }
+  cartFinalMap['name'] = [];
+  cartFinalMap['itemsQuantity'] = [];
+
+  if (cartSnapshot.exists) {
+    try {
+      cartObj = Cart.fromJson(cartSnapshot.data()?['cart']!);
+      cartFinalMap['collection'] = cartObj.collection;
+      cartFinalMap['itemsId'] = cartObj.itemsId;
+      cartFinalMap['selectedItemIndex'] = cartObj.selectedItemIndex;
+
+      for (var i = 0; i < cartObj.collection.length; i++) {
+        final docProduct = FirebaseFirestore.instance
+            .collection(cartObj.collection[i])
+            .doc(cartObj.itemsId[i]);
+        final productSnapshot = await docProduct.get();
+        //imageName
+        //name
+        //color
+        //currentPrice
+        //itemQuantity
+        for (var j = 0; j < listOfItemToBeInsertedToMap.length; j++) {
+          cartFinalMap[listOfItemToBeInsertedToMap[j]]?.add(
+              productSnapshot.data()?[listOfItemToBeInsertedToMap[j]]
+              [cartObj.selectedItemIndex[i]]);
+        }
+        cartFinalMap['name']?.add(productSnapshot.data()?['name']);
+        cartFinalMap['itemsQuantity']?.add(cartObj.itemsQuantity[i]);
+      }
+    } catch (e) {
+      print("no items in the cart");
+    }
+  }
+
+  //remove all the unchecked item from cartFinalMap array
+  for(int i = 0; i < isItemChecked.length; i++){
+    if(!isItemChecked[i]){
+      cartFinalMap['name']?.remove(i);
+      cartFinalMap['itemsQuantity']?.remove(i);
+      cartFinalMap['collection']?.remove(i);
+      cartFinalMap['itemsId']?.remove(i);
+      cartFinalMap['selectedItemIndex']?.remove(i);
+      cartFinalMap['imageName']?.remove(i);
+      cartFinalMap['color']?.remove(i);
+      cartFinalMap['currentPrice']?.remove(i);
+    }
+  }
+
+  //print(cartFinalMap);
+  return FinalCartItems.fromJson(cartFinalMap);
+}

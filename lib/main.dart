@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:vaperists_ecommerce/screens/home_screen.dart';
 import 'package:vaperists_ecommerce/screens/login_screen.dart';
-import 'package:vaperists_ecommerce/screens/sign-up_screen.dart';
 import 'package:vaperists_ecommerce/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
