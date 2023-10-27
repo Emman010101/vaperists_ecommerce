@@ -14,8 +14,9 @@ import '../widgets/firebase_image.dart';
 
 class CheckoutScreen extends StatefulWidget {
   List<dynamic> isItemChecked = [];
+  var total;
 
-  CheckoutScreen({super.key, required this.isItemChecked});
+  CheckoutScreen({super.key, required this.isItemChecked, required this.total});
 
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
@@ -28,6 +29,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
     var screenHeight = MediaQuery.of(context).size.height;
+    print("LOG: ${widget.isItemChecked}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: appBgColor,
@@ -295,6 +297,65 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ),
               ],
+            ),
+            //place order
+            Positioned(
+              bottom: 0,
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                width: screenWidth,
+                color: productWidgetBg,
+                child: Row(
+                  children: [
+                    const Spacer(),
+                    Column(
+                      children: [
+                        Text(
+                          "Subtotal: ${widget.total}",
+                          style: const TextStyle(
+                              color: textColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "Shipping fee: ",
+                          style: const TextStyle(
+                              color: textColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 10),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(textColor),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            // Change your radius here
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      ),
+                      onPressed: () async {
+
+                      },
+                      child: const Text(
+                        "Place Order",
+                        style: TextStyle(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

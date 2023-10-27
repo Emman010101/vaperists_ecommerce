@@ -337,7 +337,6 @@ Future<FinalCartItems?> readCart(uid) async {
       print("no items in the cart");
     }
   }
-  print(cartFinalMap);
   return FinalCartItems.fromJson(cartFinalMap);
 }
 
@@ -410,15 +409,16 @@ class Order {
 Future<FinalCartItems?> readCartForCheckout(uid, List<dynamic> isItemChecked) async {
   Cart cartObj;
   Map<dynamic, List<dynamic>> cartFinalMap = new Map();
-  var listOfItemToBeInsertedToMap = ['imageName', 'color', 'currentPrice'];
+  Map<dynamic, List<dynamic>> newCartFinalMap = new Map();
   final docCart = FirebaseFirestore.instance.collection('users').doc(uid);
   final cartSnapshot = await docCart.get();
 
-  for (var i = 0; i < listOfItemToBeInsertedToMap.length; i++) {
-    cartFinalMap[listOfItemToBeInsertedToMap[i]] = [];
-  }
+  cartFinalMap['imageName'] = [];
+  cartFinalMap['color'] = [];
+  cartFinalMap['currentPrice'] = [];
   cartFinalMap['name'] = [];
   cartFinalMap['itemsQuantity'] = [];
+
 
   if (cartSnapshot.exists) {
     try {
@@ -426,7 +426,9 @@ Future<FinalCartItems?> readCartForCheckout(uid, List<dynamic> isItemChecked) as
       cartFinalMap['collection'] = cartObj.collection;
       cartFinalMap['itemsId'] = cartObj.itemsId;
       cartFinalMap['selectedItemIndex'] = cartObj.selectedItemIndex;
+      cartFinalMap['itemsQuantity'] = cartObj.itemsQuantity;
 
+      //get the specific product by using the collection and itemsId in the cart(firestoredb)
       for (var i = 0; i < cartObj.collection.length; i++) {
         final docProduct = FirebaseFirestore.instance
             .collection(cartObj.collection[i])
@@ -437,33 +439,40 @@ Future<FinalCartItems?> readCartForCheckout(uid, List<dynamic> isItemChecked) as
         //color
         //currentPrice
         //itemQuantity
-        for (var j = 0; j < listOfItemToBeInsertedToMap.length; j++) {
-          cartFinalMap[listOfItemToBeInsertedToMap[j]]?.add(
-              productSnapshot.data()?[listOfItemToBeInsertedToMap[j]]
-              [cartObj.selectedItemIndex[i]]);
-        }
+        //'imageName', 'color', 'currentPrice'
+        cartFinalMap['imageName']?.add(productSnapshot.data()?['imageName'][cartObj.selectedItemIndex[i]]);
+        cartFinalMap['color']?.add(productSnapshot.data()?['color'][cartObj.selectedItemIndex[i]]);
+        cartFinalMap['currentPrice']?.add(productSnapshot.data()?['currentPrice'][cartObj.selectedItemIndex[i]]);
         cartFinalMap['name']?.add(productSnapshot.data()?['name']);
-        cartFinalMap['itemsQuantity']?.add(cartObj.itemsQuantity[i]);
       }
     } catch (e) {
       print("no items in the cart");
     }
   }
 
+  newCartFinalMap['name'] = [];
+  newCartFinalMap['itemsQuantity'] = [];
+  newCartFinalMap['collection'] = [];
+  newCartFinalMap['itemsId'] = [];
+  newCartFinalMap['selectedItemIndex'] = [];
+  newCartFinalMap['imageName'] = [];
+  newCartFinalMap['color'] = [];
+  newCartFinalMap['currentPrice'] = [];
   //remove all the unchecked item from cartFinalMap array
   for(int i = 0; i < isItemChecked.length; i++){
-    if(!isItemChecked[i]){
-      cartFinalMap['name']?.remove(i);
-      cartFinalMap['itemsQuantity']?.remove(i);
-      cartFinalMap['collection']?.remove(i);
-      cartFinalMap['itemsId']?.remove(i);
-      cartFinalMap['selectedItemIndex']?.remove(i);
-      cartFinalMap['imageName']?.remove(i);
-      cartFinalMap['color']?.remove(i);
-      cartFinalMap['currentPrice']?.remove(i);
+    if(isItemChecked[i]){
+      newCartFinalMap['name']?.add(cartFinalMap['name']?[i]);
+      newCartFinalMap['itemsQuantity']?.add(cartFinalMap['itemsQuantity']?[i]);
+      newCartFinalMap['collection']?.add(cartFinalMap['collection']?[i]);
+      newCartFinalMap['itemsId']?.add(cartFinalMap['itemsId']?[i]);
+      newCartFinalMap['selectedItemIndex']?.add(cartFinalMap['selectedItemIndex']?[i]);
+      newCartFinalMap['imageName']?.add(cartFinalMap['imageName']?[i]);
+      newCartFinalMap['color']?.add(cartFinalMap['color']?[i]);
+      newCartFinalMap['currentPrice']?.add(cartFinalMap['currentPrice']?[i]);
     }
   }
 
-  //print(cartFinalMap);
-  return FinalCartItems.fromJson(cartFinalMap);
+  print("CartFinalMap: ${newCartFinalMap}");
+  //print("CartFinalMap: ${cartFinalMap['imageName']?[0]}");
+  return FinalCartItems.fromJson(newCartFinalMap);
 }

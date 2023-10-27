@@ -468,7 +468,9 @@ class _CartScreenState extends State<CartScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        openScreen(context, CheckoutScreen(isItemChecked: isItemChecked));
+                        if(subTotal > 0.0){
+                          openScreen(context, CheckoutScreen(isItemChecked: isItemChecked, total: subTotal,));
+                        }
                       },
                       child: const Text(
                         "Checkout",
