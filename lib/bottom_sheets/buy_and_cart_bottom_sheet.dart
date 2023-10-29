@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:vaperists_ecommerce/data/global_vars.dart';
-import 'package:vaperists_ecommerce/data/ids.dart';
 import 'package:vaperists_ecommerce/utils/close_screen.dart';
-import 'package:vaperists_ecommerce/utils/snackbar.dart';
 import 'package:vaperists_ecommerce/widgets/firebase_image.dart';
 import '../data/bnc_data.dart';
 import '../data/firestore_crud.dart';
 import '../utils/colors.dart';
 import '../utils/internet_checker.dart';
-import '../widgets/quantity_counter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BuyAndCartBottomSheetWidget extends StatefulWidget {
-  var imageUrl, name, currentPrice, btnText;
+  var imageUrl, name, currentPrice, btnText, productId;
 
   BuyAndCartBottomSheetWidget(
-      {Key? key, this.imageUrl, this.name, this.currentPrice, this.btnText})
+      {Key? key, this.imageUrl, this.name, this.currentPrice, this.btnText, required this.productId})
       : super(key: key);
 
   @override
@@ -118,7 +115,7 @@ class _BuyAndCartBottomSheetWidgetState
               // if(await isConnectedToInternet() == true) {
                 if (widget.btnText.toString() == "Add To Cart") {
                   await addToCart(
-                    productId, selectedIndex, itemCount,
+                    widget.productId, selectedIndex, itemCount,
                     FirebaseAuth.instance.currentUser!.uid);
                 }
                     closeScreen(context);

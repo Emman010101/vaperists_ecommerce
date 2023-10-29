@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:vaperists_ecommerce/data/bnc_data.dart';
 import 'package:vaperists_ecommerce/data/firestore_crud.dart';
-import 'package:vaperists_ecommerce/data/ids.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vaperists_ecommerce/widgets/firebase_image.dart';
 import '../utils/colors.dart';
 
 class ViewProductWidget extends StatefulWidget {
   var collection;
-  ViewProductWidget({super.key,this.collection});
+  var productId;
+  ViewProductWidget({super.key, required this.collection, required this.productId});
 
   @override
   State<ViewProductWidget> createState() => _ViewProductWidgetState();
@@ -19,7 +19,7 @@ class _ViewProductWidgetState extends State<ViewProductWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Products?>(
-        future: readProduct(productId, widget.collection),
+        future: readProduct(widget.productId, widget.collection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text("Something went wrong");

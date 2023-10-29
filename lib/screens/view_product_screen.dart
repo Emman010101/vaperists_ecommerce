@@ -9,7 +9,8 @@ import '../utils/colors.dart';
 import '../utils/screen_opener.dart';
 class ViewProduct extends StatefulWidget {
   var collection;
-  ViewProduct({super.key,this.collection});
+  var productId;
+  ViewProduct({super.key,this.collection, required this.productId});
 
   @override
   State<ViewProduct> createState() => _ViewProductState();
@@ -35,7 +36,7 @@ class _ViewProductState extends State<ViewProduct> {
                 const ViewProductTopContainer(searchBarTitle: "Search Product"),
                 Expanded(
                   child: SingleChildScrollView(
-                    child: ViewProductWidget(collection: widget.collection),
+                    child: ViewProductWidget(collection: widget.collection, productId: widget.productId,),
                   ),
                 ),
               ],
@@ -123,7 +124,7 @@ class _ViewProductState extends State<ViewProduct> {
         builder: (BuildContext bc) {
           return Wrap(
             children: [
-              BnCWidget(collection: widget.collection, btnText: btnText,),
+              BnCWidget(collection: widget.collection, btnText: btnText, productId: widget.productId,),
             ],
           );
         });

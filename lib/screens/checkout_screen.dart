@@ -320,9 +320,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        Text(
+                        const Text(
                           "Shipping fee: ",
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: textColor,
                               fontWeight: FontWeight.w500,
                               fontSize: 10),

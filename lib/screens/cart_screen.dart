@@ -27,8 +27,8 @@ class _CartScreenState extends State<CartScreen> {
   List<dynamic> pricesArr = [];
   List<dynamic> quantityArr = [];
   bool isCheckAll = false;
-  double subTotal = 0.00;
-  double shippingFee = 0.00;
+  double subTotal = 0;
+  double shippingFee = 0;
   double lastItemSizedBoxSize = 0.24;
 
   @override

@@ -1,11 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:vaperists_ecommerce/data/firestore_crud.dart';
-import 'package:vaperists_ecommerce/data/ids.dart';
 import 'package:vaperists_ecommerce/screens/view_product_screen.dart';
 import 'package:vaperists_ecommerce/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vaperists_ecommerce/utils/loading.dart';
 import 'package:vaperists_ecommerce/utils/screen_opener.dart';
 import 'package:vaperists_ecommerce/widgets/firebase_image.dart';
@@ -65,8 +63,7 @@ class _ProductDisplayWidgetState extends State<ProductDisplayWidget> {
         setState(() {
           clickedIndex = index;
         });
-        productId = products.id;
-        openScreen(context, ViewProduct(collection: widget.collection));
+        openScreen(context, ViewProduct(collection: widget.collection, productId: products.id,));
       },
       child: Column(
         children: [

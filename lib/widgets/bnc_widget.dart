@@ -3,12 +3,12 @@ import 'package:vaperists_ecommerce/utils/colors.dart';
 import 'package:vaperists_ecommerce/utils/loading.dart';
 import '../bottom_sheets/buy_and_cart_bottom_sheet.dart';
 import '../data/firestore_crud.dart';
-import '../data/ids.dart';
 
 class BnCWidget extends StatefulWidget {
   var collection;
   var btnText;
-  BnCWidget({Key? key,this.collection, this.btnText}) : super(key: key);
+  var productId;
+  BnCWidget({Key? key,this.collection, this.btnText, required this.productId}) : super(key: key);
 
   @override
   State<BnCWidget> createState() => _BnCWidgetState();
@@ -18,7 +18,7 @@ class _BnCWidgetState extends State<BnCWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Products?>(
-        future: readProduct(productId, widget.collection),
+        future: readProduct(widget.productId, widget.collection),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Text("Something went wrong");
@@ -31,7 +31,7 @@ class _BnCWidgetState extends State<BnCWidget> {
                       style: TextStyle(color: Colors.white),
                     ),
                   )
-                : BuyAndCartBottomSheetWidget(imageUrl: product.imageName,name: product.name, currentPrice: product.currentPrice, btnText: widget.btnText,);
+                : BuyAndCartBottomSheetWidget(imageUrl: product.imageName,name: product.name, currentPrice: product.currentPrice, btnText: widget.btnText, productId: widget.productId,);
           } else {
             return Center(
               child: Loading(color: textColor,),
