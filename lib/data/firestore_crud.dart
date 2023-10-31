@@ -473,6 +473,5 @@ Future<FinalCartItems?> readCartForCheckout(uid, List<dynamic> isItemChecked) as
   }
 
   print("CartFinalMap: ${newCartFinalMap}");
-  //print("CartFinalMap: ${cartFinalMap['imageName']?[0]}");
   return FinalCartItems.fromJson(newCartFinalMap);
 }

@@ -3,7 +3,6 @@ import 'package:vaperists_ecommerce/data/firebase_auth.dart';
 import 'package:vaperists_ecommerce/screens/cart_screen.dart';
 import 'package:vaperists_ecommerce/screens/product_display_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../data/firestore_crud.dart';
 import '../utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -79,23 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // ...tabBarIcons.map(
-                    //   (icon) => IconButton(
-                    //     onPressed: () {
-                    //       setState(() {
-                    //         _iconButtonColor = Colors.yellow;
-                    //       });
-                    //       if (icon == FontAwesomeIcons.house) {
-                    //         pageController.jumpToPage(0);
-                    //         print('Icon $icon');
-                    //       } else {
-                    //         pageController.jumpToPage(1);
-                    //         print('Icon $icon');
-                    //       }
-                    //     },
-                    //     icon: Icon(icon,color: _iconButtonColor, size: 22),
-                    //   ),
-                    // ),
                     IconButton(
                       onPressed: () {
                         // createProducts(
@@ -133,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     IconButton(
                       onPressed: () {
                         //deleteAllProducts("pods");
-                        signOut(context);
+                        //signOut(context);
                         setState(() {
                           _iconButtonColor1 = textColor.withOpacity(0.5);
                           _iconButtonColor2 = textColor.withOpacity(0.5);

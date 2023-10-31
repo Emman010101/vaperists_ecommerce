@@ -55,9 +55,12 @@ dev_dependencies:
   firebase_storage: ^11.2.7
   google_sign_in: ^6.1.5
   firebase_auth: ^4.10.0
-  flutter_facebook_auth: ^6.0.2
+  flutter_facebook_auth: ^5.0.11
   connectivity_plus: ^4.0.2
   pinput: ^3.0.1
+  paymongo_sdk: ^1.6.1
+  webview_flutter: ^3.0.4
+  webview_flutter_web: ^0.1.0+3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

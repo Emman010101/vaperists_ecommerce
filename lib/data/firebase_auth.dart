@@ -1,14 +1,8 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:vaperists_ecommerce/screens/home_screen.dart';
 import 'package:vaperists_ecommerce/screens/login_screen.dart';
-import 'package:vaperists_ecommerce/screens/sms_code_screen.dart';
-import 'package:vaperists_ecommerce/utils/close_screen.dart';
 import 'package:vaperists_ecommerce/utils/screen_opener.dart';
-import 'package:vaperists_ecommerce/utils/snackbar.dart';
-
-import 'global_vars.dart';
 
 //google sign-in
 Future<UserCredential> signInWithGoogle() async {

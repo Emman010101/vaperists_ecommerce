@@ -7,6 +7,7 @@ import 'package:vaperists_ecommerce/utils/screen_opener.dart';
 import 'package:vaperists_ecommerce/widgets/firebase_image.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vaperists_ecommerce/payment_gateway/event_handler.dart';
 
 import '../utils/close_screen.dart';
 import '../utils/colors.dart';
@@ -21,7 +22,7 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartScreenState extends State<CartScreen> with PaymongoEventHandler {
   var uid = FirebaseAuth.instance.currentUser!.uid;
   List<dynamic> isItemChecked = [];
   List<dynamic> pricesArr = [];
@@ -469,7 +470,8 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       onPressed: () async {
                         if(subTotal > 0.0){
-                          openScreen(context, CheckoutScreen(isItemChecked: isItemChecked, total: subTotal,));
+                          //openScreen(context, CheckoutScreen(isItemChecked: isItemChecked, total: subTotal,));
+                          await gcashPayment(subTotal);
                         }
                       },
                       child: const Text(
