@@ -472,6 +472,7 @@ class _CartScreenState extends State<CartScreen> with PaymongoEventHandler {
                         if(subTotal > 0.0){
                           //openScreen(context, CheckoutScreen(isItemChecked: isItemChecked, total: subTotal,));
                           await gcashPayment(subTotal);
+                          //await cardPayment(subTotal);
                         }
                       },
                       child: const Text(

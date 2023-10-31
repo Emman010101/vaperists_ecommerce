@@ -121,7 +121,7 @@ mixin PaymongoEventHandler<T extends StatefulWidget> on State<T> {
           .create(PaymentMethodAttributes(
         billing: billing,
         type: PaymentType.paymaya,
-        details: PaymentMethodDetails(
+        details: const PaymentMethodDetails(
           cardNumber: '4120000000000007',
           expMonth: 2,
           expYear: 27,
@@ -132,7 +132,7 @@ mixin PaymongoEventHandler<T extends StatefulWidget> on State<T> {
           amount: _amount.toDouble(),
           description: "Test payment",
           statementDescriptor: "Test payment descriptor",
-          metadata: {
+          metadata: const {
             "environment": kReleaseMode ? "LIVE" : "DEV",
           });
       const successUrl = 'https://google.com/success';
