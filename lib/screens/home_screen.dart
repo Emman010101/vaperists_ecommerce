@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vaperists_ecommerce/data/firebase_auth.dart';
+import 'package:vaperists_ecommerce/screens/account_screen.dart';
 import 'package:vaperists_ecommerce/screens/cart_screen.dart';
 import 'package:vaperists_ecommerce/screens/product_display_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,9 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   final pageController = PageController(initialPage: 0);
-  Color _iconButtonColor1 = textColor;
-  Color _iconButtonColor2 = textColor.withOpacity(0.5);
-  Color _iconButtonColor3 = textColor.withOpacity(0.5);
+  final _iconButtonColor = <Color>[textColor,textColor.withOpacity(0.5),textColor.withOpacity(0.5)];
 
   //tabbar icons
   final tabBarIcons = [
@@ -55,12 +54,20 @@ class _HomeScreenState extends State<HomeScreen> {
               onPageChanged: (index) {
                 setState(() {
                   currentIndex = index;
+                  for(var i = 0; i < _iconButtonColor.length;i++){
+                    if(i == index){
+                      _iconButtonColor[i] = textColor;
+                    }else{
+                      _iconButtonColor[i] = textColor.withOpacity(0.5);
+                    }
+                  }
                 });
               },
+              //screens of navbar
               children: [
                 const ProductDisplayScreen(),
                 CartScreen(isFromViewProductScreen: false),
-                //TODO do the cart bro
+                const AccountScreen(),
               ],
             ),
             //bottombar
@@ -91,40 +98,40 @@ class _HomeScreenState extends State<HomeScreen> {
                         // color: "black"
                         // );
                         setState(() {
-                          _iconButtonColor1 = textColor;
-                          _iconButtonColor2 = textColor.withOpacity(0.5);
-                          _iconButtonColor3 = textColor.withOpacity(0.5);
+                          _iconButtonColor[0] = textColor;
+                          _iconButtonColor[1] = textColor.withOpacity(0.5);
+                          _iconButtonColor[2] = textColor.withOpacity(0.5);
                         });
                         pageController.jumpToPage(0);
                       },
                       icon: Icon(tabBarIcons[0],
-                          color: _iconButtonColor1, size: 22),
+                          color: _iconButtonColor[0], size: 22),
                     ),
                     IconButton(
                       onPressed: () {
                         setState(() {
-                          _iconButtonColor1 = textColor.withOpacity(0.5);
-                          _iconButtonColor2 = textColor;
-                          _iconButtonColor3 = textColor.withOpacity(0.5);
+                          _iconButtonColor[0] = textColor.withOpacity(0.5);
+                          _iconButtonColor[1] = textColor;
+                          _iconButtonColor[2] = textColor.withOpacity(0.5);
                         });
                         pageController.jumpToPage(1);
                       },
                       icon: Icon(tabBarIcons[1],
-                          color: _iconButtonColor2, size: 22),
+                          color: _iconButtonColor[1], size: 22),
                     ),
                     IconButton(
                       onPressed: () {
                         //deleteAllProducts("pods");
                         //signOut(context);
                         setState(() {
-                          _iconButtonColor1 = textColor.withOpacity(0.5);
-                          _iconButtonColor2 = textColor.withOpacity(0.5);
-                          _iconButtonColor3 = textColor;
+                          _iconButtonColor[0] = textColor.withOpacity(0.5);
+                          _iconButtonColor[1] = textColor.withOpacity(0.5);
+                          _iconButtonColor[2] = textColor;
                         });
-                        pageController.jumpToPage(0);
+                        pageController.jumpToPage(2);
                       },
                       icon: Icon(tabBarIcons[2],
-                          color: _iconButtonColor3, size: 22),
+                          color: _iconButtonColor[2], size: 22),
                     ),
                   ],
                 ),
