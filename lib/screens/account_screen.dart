@@ -39,7 +39,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ),
                       const SizedBox(width: 15,),
-                      const Text("John Hoe", style: TextStyle(fontSize: 25, color: Colors.white),),
+                      const Text("John Doe", style: TextStyle(fontSize: 25, color: Colors.white),),
                       const Spacer(),
                       IconButton(
                         icon: const Icon(
