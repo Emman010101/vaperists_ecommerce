@@ -7,19 +7,19 @@ import 'checkout.dart';
 
 const publicKey = String.fromEnvironment(
   'PUBLIC_KEY',
-  defaultValue: 'pk_test_Dpe7cKewo7JpHyF2iBra5Sjm',
+  defaultValue: 'pk_test_FdqqJM3bVSZmnpvhUFQ3VCYL',
 );
 const secretKey = String.fromEnvironment(
   'SECRET_KEY',
-  defaultValue: 'sk_test_8Fk9xMNRXDChC4b1XBsHpUEm',
+  defaultValue: 'sk_test_TrjpjDNvevMS5Apt4BwbsW61',
 );
 mixin PaymongoEventHandler<T extends StatefulWidget> on State<T> {
   final publicClient = const PaymongoClient<PaymongoPublic>(publicKey);
   final secretClient = const PaymongoClient<PaymongoSecret>(secretKey);
   final billing = PayMongoBilling(
-    name: 'Vince',
-    email: "vince@gmail.com",
-    phone: "09555841041",
+    name: 'Emman',
+    email: "emmansuarez6@gmail.com",
+    phone: "09917377455",
     address: PayMongoAddress(
       line1: "test address",
       line2: "test 2 address",
@@ -185,6 +185,7 @@ mixin PaymongoEventHandler<T extends StatefulWidget> on State<T> {
           ),
         ),
       );
+      print("Type of response: ${response}");
       if (response) {
         final paymentSource = PaymentSource(id: result.id, type: "source");
         final paymentAttr = CreatePaymentAttributes(
@@ -195,9 +196,9 @@ mixin PaymongoEventHandler<T extends StatefulWidget> on State<T> {
         );
         final createPayment =
             await secretClient.instance.payment.create(paymentAttr);
-        debugPrint("==============================");
-        debugPrint("||${createPayment}||");
-        debugPrint("==============================");
+        print("==============================");
+        print("||${createPayment}||");
+        print("==============================");
       }
     }
   }

@@ -68,6 +68,7 @@ class _CheckoutPageState extends State<CheckoutPage> with UrlIFrameParser {
                     return;
                   }
                   if (message.message.contains('success')) {
+                    print("success1");
                     Navigator.pop(context, true);
                     return;
                   }
